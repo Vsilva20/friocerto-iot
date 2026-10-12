@@ -29,12 +29,16 @@ services:
     volumes:
       - influxdb_data:/var/lib/influxdb2
       - influxdb_config:/etc/influxdb2
+
+
     healthcheck:
-      test: ["CMD", "influx", "ping", "--host", "http://127.0.0.1:8086"]
+      test: ["CMD", "influx", "ping"]
       interval: 15s
       timeout: 5s
       retries: 10
       start_period: 30s
+
+
 
   telegraf:
     image: telegraf:latest
@@ -49,10 +53,11 @@ services:
     volumes:
       - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
     healthcheck:
-      test: ["CMD-SHELL", "grep -q '^telegraf$' /proc/1/comm"]
+      test: ["CMD-SHELL", "grep -q '^telegraf$' /proc/[0-9]*/comm"]
       interval: 15s
       timeout: 5s
       retries: 5
+      start_period: 10s
 
   grafana:
     image: grafana/grafana:latest
