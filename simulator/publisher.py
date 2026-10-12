@@ -6,7 +6,7 @@ import paho.mqtt.client as mqtt
 # Configurações
 BROKER = "localhost"
 PORTA = 1883
-INTERVALO = 2  # 2s no laboratório; 60s em produção
+INTERVALO = 60  # 2s no laboratório; 60s em produção
 ANOMALIA_APOS = 120 #120s normalmente
 DURACAO_ALERTA = 300 #300s normalmente
 
